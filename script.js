@@ -12,7 +12,33 @@ create(DEFAULT_GRID_SIZE); // create default 16x16 grid on initial load
  */
 function setGridSize() {
     document.getElementById("grid-container").replaceChildren();
-    currentGridSize = parseInt(prompt("Please enter desired square grid size:"));
+
+    let isValid = false;
+
+    while (!isValid) {
+        currentGridSize = prompt("Please enter desired square grid size:");
+
+        if (isNaN(currentGridSize) || currentGridSize.trim() === "") {
+            alert("Please enter a valid integer between 1 and 100 inclusive");
+            continue;
+        }
+
+        currentGridSize = parseInt(currentGridSize);
+
+        // Check if it's positive and within reasonable bounds
+        if (currentGridSize < 1) {
+            alert("Grid size must be at least 1");
+            continue;
+        }
+
+        if (currentGridSize > 100) {
+            alert("Grid size cannot exceed 100");
+            continue;
+        }
+
+        isValid = true;
+    }
+
     create(currentGridSize);
 }
 
