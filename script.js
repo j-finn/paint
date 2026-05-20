@@ -4,12 +4,15 @@ let isMouseDown = false;
 let isEraserModeActive = false;
 
 
+// Fire init method once DOM content loaded
 document.addEventListener('DOMContentLoaded', init)
 
 
+/**
+ * Initialise the grid and listeners used for detecting user's mouse input.
+ */
 function init() {
     create(DEFAULT_GRID_SIZE); // create default 16x16 grid on initial load
-
 
     const container = document.getElementById("grid-container");
 
@@ -71,6 +74,7 @@ function setGridSize() {
     create(currentGridSize);
 }
 
+
 /**
  * Redraw the previous grid resetting the users drawing.
  */
@@ -79,6 +83,13 @@ function redrawPreviousGrid() {
     create(currentGridSize);
 }
 
+
+/**
+ * Responsible for filling or removing the fill from the specified div depending
+ * on whether eraser mode is active or not.
+ *
+ * @param div whose background colour will be filled
+ */
 function fillDiv(div) {
     if (isEraserModeActive) {
         div.style.backgroundColor = "";
@@ -108,6 +119,9 @@ function create(squareGridSize) {
 }
 
 
+/**
+ * Responsible for toggling between draw and erase mode. Erase mode will set the mouse cursor to a bomb icon.
+ */
 function toggleDrawMode() {
     isEraserModeActive = !isEraserModeActive;
 
