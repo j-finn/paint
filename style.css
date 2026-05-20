@@ -1,12 +1,19 @@
 body {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
     height: 100vh;
+}
+
+
+#buttons {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0;
 }
 
 button {
     box-sizing: border-box;
-    align-self: flex-start;
     border-radius: 8px;
     color: white;
     min-height: 50px;
@@ -26,13 +33,12 @@ button {
     background-color: midnightblue;
 }
 
-
 #grid-container {
     display: flex;
     flex-wrap: wrap;
     width: 600px;
-    margin: auto;
-    padding-bottom: 50px;
+    /*margin: auto;*/
+    padding: 50px;
 }
 
 #grid-container > div {

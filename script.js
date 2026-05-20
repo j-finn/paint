@@ -3,7 +3,36 @@ let currentGridSize = DEFAULT_GRID_SIZE;
 let isMouseDown = false;
 let isEraserModeActive = false;
 
-create(DEFAULT_GRID_SIZE); // create default 16x16 grid on initial load
+
+document.addEventListener('DOMContentLoaded', init)
+
+
+function init() {
+    create(DEFAULT_GRID_SIZE); // create default 16x16 grid on initial load
+
+
+    const container = document.getElementById("grid-container");
+
+    container.addEventListener("mousedown", (event) => {
+        if (event.button === 0 && event.target !== container) {
+            isMouseDown = true;
+            fillDiv(event.target);
+        }
+    });
+
+    container.addEventListener("mouseover", (event) => {
+        if (isMouseDown && event.target !== container) {
+            fillDiv(event.target);
+        }
+    });
+
+    document.addEventListener("mouseup", (event) => {
+        if (event.button === 0) {
+            isMouseDown = false;
+        }
+    });
+}
+
 
 /**
  * Clears all the child div elements in the grid-container to create a blank slate.
@@ -74,19 +103,6 @@ function create(squareGridSize) {
         for (let j = 1; j <= squareGridSize; j++) {
             const div = document.createElement("div");
             container.appendChild(div);
-
-            div.addEventListener("mousedown", (event) => {
-                if (event.button === 0) {
-                    isMouseDown = true;
-                    fillDiv(div);
-                }
-            });
-
-            div.addEventListener("mouseover", () => {
-                if (isMouseDown) {
-                    fillDiv(div);
-                }
-            });
         }
     }
 }
@@ -101,12 +117,5 @@ function toggleDrawMode() {
         document.getElementById("grid-container").style.cursor = "auto";
     }
 
-    document.getElementById("eraser-button").textContent = isEraserModeActive ? "Eraser Mode" : "Draw Mode";
+    document.getElementById("eraser-button").textContent = isEraserModeActive ? "Eraser Mode Active" : "Draw Mode Active";
 }
-
-
-document.addEventListener("mouseup", (event) => {
-    if (event.button === 0) {
-        isMouseDown = false;
-    }
-});
